@@ -13,4 +13,4 @@ urlpatterns = [
     path('docs/', include_docs_urls(title="Tasks API"))    
 ]
 
-#clase que genera GET, POST, PUT, DELETE
+#clase que genera GET, POST, PUT, DELETE http://127.0.0.1:8000/tasks/api/v1/tasks/

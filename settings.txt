@@ -1,0 +1,94 @@
+0. crear una carpeta nueva, proyecto desde cero.
+1. node --version = 18.18.0
+2. python --version = 3.10.4
+3. pip install virtualenv: para crear un entorno virtual en python
+4. python -m venv venv: el 2do venv es el nombre de la carpeta donde se pone el entorno virtual
+5. f1, elegir interprete, elegir "python con estrellita" para ejecutar todo en venv en el terminal. (venv) path...
+6. pip install django
+7. django-admin startproject "nombre proyecto" . : el . no crea una carpeta global, sino dentro de carpeta inicial.
+8. python manage.py runserver: corre el proyecto local
+9. python manage.py startapp "nombre de la app": crea una nueva carpeta
+10. ir a settings, agregar carpeta "nombre de la app"
+
+    INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'corsheaders',
+    'rest_framework',
+    'coreapi',
+    'tasks' -----------------------> 'nombre de la app' --> se agrega manualmente
+    ]
+
+11. python manage.py migrate: crea tablas que requiere el proyecto
+12. python manage.py runserver: ...sin mensajes de errores en el terminal
+13. pip install djangorestframework
+14. pip install django-cors-headers: para facilitar la conexion back-front de 2 servidores
+15. ir a settings, y agregar framework y corsheaders.
+
+    INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'corsheaders', -----------------------> se agrega manualmente
+    'rest_framework', -----------------------> se agrega manualmente
+    'coreapi',
+    'tasks' 
+    ]
+
+    tambien agregar corsheaders en:
+
+    MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    "corsheaders.middleware.CorsMiddleware", -----------------------> se agrega manualmente
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    ]
+
+    tambien agregar al final de settings, los servidores que se autorizan a comunicarse
+
+    # cors authorization
+    CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173"   -----------------------> se agrega manualmente. es el front
+    ]
+
+15. python manage.py runserver; verificar que siga funcionando el back
+16. en models.py, crear clases, metodos de clase para crear tablas de bd (Task)
+
+    from django.db import models
+
+    class Task(models.Model):
+        title = models.CharField(max_length=200)
+        description = models.TextField(blank=True)
+        done = models.BooleanField(default=False)    ...
+
+17. python manage.py makemigrations, para crear tablas por python. (se crea carpeta migrations en "nom de la app")
+18. python manage.py migrate "tasks", ejecuta el codigo del comando anterior 
+19. python manage.py runserver, en localhost/admin --> ver back corriendo 
+20. python manage.py createsuperuser, para acceder como admin al back el localhost.
+
+    username: admin
+    email address: correo@correo.com
+    password: youpassword
+    password again: youpassword
+
+21. python manage.py runserver: verificar que el superuser entre como admin
+22. en admin.py, para ver en localhost las tablas creadas.
+
+    from .models import Task
+
+    admin.site.register(Tasks)
+
+23. python manage.py runserver: ahora se puede ver Task en localhost.
+
+/**** minuto 21, fin de configuracion inci back ****/
